@@ -1,6 +1,6 @@
 import { 
   Controller, Get, Post, Put, Delete, Body, Param, UseGuards, 
-  UseInterceptors, UploadedFile, Inject // <--- 1. Importa o Inject
+  UseInterceptors, UploadedFile, Inject
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostsService } from './posts.service.js';
@@ -9,7 +9,9 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 
 const storageConfig = diskStorage({
-  destination: './server/uploads',
+  // CORRIGIDO: O caminho de destino foi alterado para 'uploads'
+  // para ser consistente com a configuração de arquivos estáticos em main.ts.
+  destination: './uploads',
   filename: (req: any, file: any, callback: any) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = extname(file.originalname);
@@ -20,7 +22,7 @@ const storageConfig = diskStorage({
 @Controller('posts')
 export class PostsController {
   constructor(
-    @Inject(PostsService) // <--- 2. Adiciona esta linha
+    @Inject(PostsService)
     private readonly postsService: PostsService
   ) {}
 
