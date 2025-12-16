@@ -16,7 +16,8 @@ async function bootstrap() {
 
   // Configura a pasta estática para servir imagens
   // Isto permite acessar http://localhost:3001/uploads/nome-do-arquivo.jpg
-  app.useStaticAssets(join(process.cwd(), 'server/uploads'), {
+  // 🔴 CORRIGIDO: O caminho foi alterado de 'server/uploads' para 'uploads'
+  app.useStaticAssets(join(process.cwd(), 'uploads'), { 
     prefix: '/uploads/',
   });
 
