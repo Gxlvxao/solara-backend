@@ -1,0 +1,25 @@
+# Dependency folders
+/node_modules
+
+# Build artifacts
+/dist
+/*.tsbuildinfo
+
+# Sensitive files
+.env
+.env.development
+.env.production
+.env.test
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun.lockb
+
+# OS files
+.DS_Store
+
+# Uploaded Files (CRITICAL: Não deve ser versionado)
+/uploads
