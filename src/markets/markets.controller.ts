@@ -1,15 +1,27 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, NotFoundException, Inject } from '@nestjs/common';
 import { MarketsService } from './markets.service.js';
 import { Market } from './market.entity.js';
 
 @Controller('markets')
 export class MarketsController {
-  constructor(private readonly marketsService: MarketsService) {}
+  constructor(
+    @Inject('MARKETS_SERVICE')
+    private readonly marketsService: MarketsService,
+  ) {}
 
   @Get()
   findAll() {
     return this.marketsService.findAll();
   }
+
+  // --- NOVO ENDPOINT (Coloque ANTES do :slug) ---
+  @Get('id/:id')
+  async findById(@Param('id') id: string) {
+    const market = await this.marketsService.findById(+id);
+    if (!market) throw new NotFoundException('Market not found');
+    return market;
+  }
+  // ---------------------------------------------
 
   @Get(':slug')
   async findOne(@Param('slug') slug: string) {

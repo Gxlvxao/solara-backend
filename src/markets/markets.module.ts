@@ -6,8 +6,13 @@ import { MarketsController } from './markets.controller.js';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Market])],
-  providers: [MarketsService],
   controllers: [MarketsController],
-  exports: [MarketsService],
+  providers: [
+    {
+      provide: 'MARKETS_SERVICE', // <--- Token Manual
+      useClass: MarketsService,
+    },
+  ],
+  exports: ['MARKETS_SERVICE'], // <--- Exporta o Token
 })
 export class MarketsModule {}

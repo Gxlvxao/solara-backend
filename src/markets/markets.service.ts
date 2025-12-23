@@ -18,6 +18,12 @@ export class MarketsService {
     return this.marketsRepository.findOneBy({ slug });
   }
 
+  // --- NOVO MÉTODO ---
+  findById(id: number): Promise<Market | null> {
+    return this.marketsRepository.findOneBy({ id });
+  }
+  // -------------------
+
   create(market: Partial<Market>): Promise<Market> {
     const newMarket = this.marketsRepository.create(market);
     return this.marketsRepository.save(newMarket);
